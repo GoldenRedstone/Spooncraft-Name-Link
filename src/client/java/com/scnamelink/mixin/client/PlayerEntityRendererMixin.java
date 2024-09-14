@@ -22,7 +22,7 @@ public abstract class PlayerEntityRendererMixin {
         if(true) {
             AbstractClientPlayerEntity player = args.get(0);
             Text display_name = args.get(1);
-            Text label = SpooncraftNameLinkClient.getAppliedName(display_name, player.getUuid(), player.getName());
+            Text label = SpooncraftNameLinkClient.getStyledName(display_name, player.getUuid(), player.getName());
             args.set(1, label);
         }
 

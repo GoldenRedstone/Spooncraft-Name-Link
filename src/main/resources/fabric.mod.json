@@ -3,13 +3,13 @@
 	"id": "sc-name-link",
 	"version": "${version}",
 	"name": "Spooncraft Name Link",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Links nicknames and name colours with the Mumbo Jumbo Discord server.",
 	"authors": [
-		"Me!"
+		"GoldenRedstone"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/sc-name-link",
+		"sources": "https://github.com/GoldenRedstone/Spooncraft-Name-Link"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/sc-name-link/icon.png",
@@ -20,9 +20,6 @@
 		],
 		"client": [
 			"com.scnamelink.SpooncraftNameLinkClient"
-		],
-		"fabric-datagen": [
-			"com.scnamelink.SpooncraftNameLinkDataGenerator"
 		]
 	},
 	"mixins": [
