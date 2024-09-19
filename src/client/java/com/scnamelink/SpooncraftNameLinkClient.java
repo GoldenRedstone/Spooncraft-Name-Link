@@ -3,84 +3,81 @@ package com.scnamelink;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.minecraft.text.MutableText;
-import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+/**
+ * Client-side mod initializer for the Minecraft mod "Spooncraft Name Link".
+ */
 public class SpooncraftNameLinkClient implements ClientModInitializer {
-    public static final String MOD_ID = "sc-name-link";
 
-   // Logger for outputting information to the console and log files
+    // The mod ID as used in logging
+    public static final String MOD_ID = "SC-Name-Link";
+
+    // Logger for outputting information to the console and log files
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     // List of mappings for replacement and optional color changes
     static List<DisplayMapping> mappings = new ArrayList<>();
 
     /**
-     * Replaces specific display names based on the mappings and applies the associated styles.
+     * Retrieves and applies the correct name mapping (if any) for a given Minecraft username or UUID.
+     * This method checks the mappings list to see if the provided displayName or uuid has a corresponding
+     * mapping, and if found, applies it by altering the name and possibly the color.
      *
-     * @param displayName the original display name
-     * @param uuid        UUID of the player (not used yet)
-     * @param name        the original name (not used yet)
-     * @return a new Text object with replaced display names and updated styles
+     * @param displayName The original in-game name to be displayed
+     * @param uuid The UUID of the Minecraft player
+     * @param name The in-game name as a Text object
+     * @return A Text object containing the potentially modified name with appropriate styling
      */
     public static Text getStyledName(Text displayName, UUID uuid, Text name) {
-        // Get the current style and content of the display name
-        Style style = displayName.getStyle();
-        String displayString = displayName.getString();
+        DisplayMapping correctMapping = null;
 
-        // Process each mapping
+        // Iterate over the mappings to find the correct match based on UUID or Minecraft name
         for (DisplayMapping mapping : mappings) {
-            if (displayString.contains(mapping.original)) {
-                // Replace the string
-                displayString = displayString.replace(mapping.original, mapping.replacement);
-
-                // Apply color if specified
-                if (mapping.colorHex.isPresent()) {
-                    style = style.withColor(Integer.parseInt(mapping.colorHex.get(), 16));
-                }
+            // If the UUID matches or the name matches, select the mapping and break
+            if (mapping.mc_uuid == uuid || Objects.equals(mapping.mc_name, name.getString())) {
+                correctMapping = mapping;
+                break;
             }
         }
 
-        // Create new MutableText with the display string and style
-        MutableText mt_name = Text.literal(displayString);
-        mt_name = mt_name.setStyle(style);
-
-        return mt_name;
+        // If a matching mapping is found, apply it; otherwise, return the original displayName
+        if (correctMapping != null) {     // If a mapping could be found.
+            return applyMapping(displayName, correctMapping);
+        }
+        // If the mapping couldn't be found, simply return what we got.
+        return displayName;
     }
 
     /**
-     * Naively applies styling and replacements to a given message.
-     * Applies every name mapping possible.
+     * Applies the mapping to a given message. It replaces the Minecraft name with the Discord nickname
+     * and applies color styling if defined in the mapping.
      *
-     * @param message the original message
-     * @return a new Text object with replaced text and styles applied
+     * @param message The original in-game message or name
+     * @param mapping The DisplayMapping object containing the name and color mapping details
+     * @return A new MutableText object with the mapping applied (replacements and color changes)
      */
-    public static Text naivelyStyleText(Text message) {
+    public static MutableText applyMapping(Text message, DisplayMapping mapping) {
         MutableText outputMessage = Text.empty();
 
-        // Visit the original StringVisitable and replace occurrences of the target string
         message.visit((style, text) -> {
             Style replacedStyle = style;
             String replacedText = text;
 
-            // Process each mapping
-            for (DisplayMapping mapping : mappings) {
-                if (replacedText.contains(mapping.original)) {
-                    // Replace the string
-                    replacedText = replacedText.replace(mapping.original, mapping.replacement);
-
-                    // Apply color if specified
-                    if (mapping.colorHex.isPresent()) {
-                        replacedStyle =
-                                replacedStyle.withColor(Integer.parseInt(mapping.colorHex.get(),
-                                                                         16));
-                    }
+            // Apply the mapping
+            if (replacedText.contains(mapping.mc_name)) {
+                // Replace the string
+                if (mapping.discord_nick != null) {
+                    replacedText = replacedText.replace(mapping.mc_name, mapping.discord_nick);
+                }
+                // Apply color if specified
+                if (mapping.colour != null) {
+                    replacedStyle = replacedStyle.withColor(Integer.parseInt(mapping.colour, 16));
                 }
             }
 
@@ -92,34 +89,38 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
             return Optional.empty();  // Continue visiting
         }, Style.EMPTY);
 
-        // Return a new concatenated StringVisitable containing the replaced text
         return outputMessage;
     }
+
+    /**
+     * Naively applies styling and replacements to a given message.
+     * This method applies every name mapping in the mappings list to the message, regardless of context.
+     *
+     * @param message The original message to which mappings will be applied
+     * @return A new Text object with all applicable mappings and styles applied
+     */
+    public static Text naivelyStyleText(Text message) {
+        MutableText outputMessage = (MutableText) message;
+
+        // Apply each mapping sequentially to the message
+        for (DisplayMapping mapping : mappings) {
+            outputMessage = applyMapping(outputMessage, mapping);
+        }
+
+        // Return the final styled message
+        return outputMessage;
+    }
+
 
     @Override
     public void onInitializeClient() {
         // This entrypoint is suitable for setting up client-specific logic, such as rendering.
-        mappings.add(new DisplayMapping("GoldenRedstone", "golðen", "F1B50F"));
-        mappings.add(new DisplayMapping("WiseGuyIT", "🍵SauronPantera200🍵", null));
-        mappings.add(new DisplayMapping("SarahPantera100", "✨✨SarahPantera100✨✨", "FF168B"));
-        mappings.add(new DisplayMapping("Duckyz", "Ducky", "B74AFF"));
-        mappings.add(new DisplayMapping("StormiStik", "Warlock Stormi💜 [v5.0]", "B74AFF"));
-        mappings.add(new DisplayMapping("Moon2Mars30", "Fort", "D4006E"));
+        mappings = NameLinkAPI.getMappings();
 
-        LOGGER.info("{} initialised with {} mappings", MOD_ID, mappings.size());
-    }
-
-    // Class to hold display name replacements and style information
-    static class DisplayMapping {
-        String original;
-        String replacement;
-        Optional<String> colorHex;  // Use Optional to allow entries without color changes
-
-        DisplayMapping(String original, String replacement, String colorHex) {
-            this.original = original;
-            this.replacement = replacement;
-            this.colorHex = Optional.ofNullable(colorHex);
+        if (mappings != null) {
+            LOGGER.info("{} initialised with {} mappings", MOD_ID, mappings.size());
+        } else {
+            LOGGER.error("{} initialised with NO mappings found", MOD_ID);
         }
     }
-
 }

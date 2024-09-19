@@ -9,7 +9,8 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/sc-name-link",
-		"sources": "https://github.com/GoldenRedstone/Spooncraft-Name-Link"
+		"sources": "https://github.com/GoldenRedstone/Spooncraft-Name-Link",
+		"modrinth": "https://modrinth.com/mod/sc-name-link"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/sc-name-link/icon.png",
