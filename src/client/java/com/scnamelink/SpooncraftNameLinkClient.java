@@ -65,6 +65,10 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
     public static MutableText applyMapping(Text message, DisplayMapping mapping) {
         MutableText outputMessage = Text.empty();
 
+        if (message == null) {
+            return outputMessage;
+        }
+
         message.visit((style, text) -> {
             Style replacedStyle = style;
             String replacedText = text;

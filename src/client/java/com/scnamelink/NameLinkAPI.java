@@ -57,13 +57,13 @@ public class NameLinkAPI {
         try {
             // Load JSON from URL
             String jsonData = loadJsonFromUrl();
-            LOGGER.info("Maybe loaded from url");
+            LOGGER.info("Load data from url");
             // Convert String JSON into Java objects
             List<DisplayMapping> displayMappings = loadJsonToObjects(jsonData);
-            LOGGER.info("Maybe converted sting to Object");
+            LOGGER.info("Converted sting to Object");
             // Save to file as a backup
             saveJsonToFile(jsonData);
-            LOGGER.info("Maybe saved the data");
+            LOGGER.info("Saved the data to {}", NameLinkAPI.CACHE_PATH);
 
             status = "Success";
             return displayMappings;
