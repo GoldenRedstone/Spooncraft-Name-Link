@@ -1,7 +1,10 @@
 package com.scnamelink.mixin.client;
 
-import com.mojang.authlib.GameProfile;
 import com.scnamelink.SpooncraftNameLinkClient;
+import com.scnamelink.config.SCNameLinkConfig;
+
+import me.shedaniel.autoconfig.AutoConfig;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
@@ -14,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin (PlayerListEntry.class)
 public abstract class PlayerListEntryMixin {
+    SCNameLinkConfig CONFIG = AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
+
     @Shadow
     @Final
     private GameProfile profile;
@@ -24,10 +29,14 @@ public abstract class PlayerListEntryMixin {
 
     @Inject (at = @At ("RETURN"), method = "getDisplayName", cancellable = true)
     public void replaceDisplayName(CallbackInfoReturnable<Text> cir) {
-        if (true) {
-            Text label = SpooncraftNameLinkClient.getStyledName(displayName, profile.getId(),
-                                                                Text.literal(profile.getName()));
-            cir.setReturnValue(label);
+
+        if ((!CONFIG.replacetablist && !CONFIG.colourtablist) || !CONFIG.enableMod) {
+            return;
         }
+
+        Text label = SpooncraftNameLinkClient.getStyledName(displayName, profile.getId(),
+                                                            Text.literal(profile.getName()),
+                                                            CONFIG.replacetablist, CONFIG.colourtablist);
+        cir.setReturnValue(label);
     }
 }

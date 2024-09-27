@@ -1,13 +1,14 @@
 package com.scnamelink;
 
-import java.io.*;
+import com.scnamelink.config.SCNameLinkConfig;
+
+import me.shedaniel.autoconfig.AutoConfig;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.Reader;
 import java.lang.reflect.Type;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -16,14 +17,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * NameLinkAPI is a utility class responsible for fetching and caching mappings between
  * Minecraft names/UUIDs and Discord nicknames from an external API.
- *
+ * <p>
  * The class handles retrieving the mappings either from a remote server or, if that fails, from a cached
  * local file. It also manages the conversion of JSON data to Java objects and provides status reporting
  * on the success or failure of these operations.
@@ -34,10 +34,10 @@ public class NameLinkAPI {
     // Logger for outputting information to the console and log files
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    // The URL of the API that provides the name-to-nickname mappings
-    static final String API_URL = "https://gwaff.uqcloud.net/api/spooncraft";
     // The file path to cache the JSON data locally in case of API failure.
     static final String CACHE_PATH = "config/spooncraft-name-link-cache.json";
+
+    static final SCNameLinkConfig CONFIG = AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
 
     // Tracks the current status of the API fetch and caching process
     static String status = "Working";
@@ -93,7 +93,7 @@ public class NameLinkAPI {
      */
     private static String loadJsonFromUrl() throws IOException, URISyntaxException {
         StringBuilder result = new StringBuilder(70000);
-        URI uri = new URI(NameLinkAPI.API_URL);
+        URI uri = new URI(CONFIG.apiLink);
         URL url = uri.toURL();
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -172,5 +172,13 @@ public class NameLinkAPI {
      */
     public static String getStatus() {
         return status;
+    }
+
+    /**
+     * Marks the mod as disabled.<br>
+     * This prevents messages from showing up when joining a server.
+     */
+    public static void disableMod() {
+        status = "Disabled";
     }
 }

@@ -16,15 +16,14 @@
 	"icon": "assets/sc-name-link/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.scnamelink.SpooncraftNameLink"
-		],
 		"client": [
 			"com.scnamelink.SpooncraftNameLinkClient"
+		],
+		"modmenu": [
+			"com.scnamelink.config.ModMenuIntegration"
 		]
 	},
 	"mixins": [
-		"sc-name-link.mixins.json",
 		{
 			"config": "sc-name-link.client.mixins.json",
 			"environment": "client"

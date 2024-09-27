@@ -1,7 +1,9 @@
 package com.scnamelink;
 
+import com.scnamelink.config.SCNameLinkConfig;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
-
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -25,16 +27,20 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
     static List<DisplayMapping> mappings = new ArrayList<>();
 
     /**
-     * Retrieves and applies the correct name mapping (if any) for a given Minecraft username or UUID.
-     * This method checks the mappings list to see if the provided displayName or uuid has a corresponding
-     * mapping, and if found, applies it by altering the name and possibly the color.
+     * Retrieves and applies the correct name mapping (if any) for a given Minecraft username or
+     * UUID.
+     * This method checks the mappings list to see if the provided displayName or uuid has a
+     * corresponding mapping, and if found, applies it by optionally altering the name and color.
      *
-     * @param displayName The original in-game name to be displayed
-     * @param uuid The UUID of the Minecraft player
-     * @param name The in-game name as a Text object
+     * @param displayName   The original in-game name to be displayed
+     * @param uuid          The UUID of the Minecraft player
+     * @param name          The in-game name as a Text object
+     * @param replaceName   Whether to replace the name with the name defined in the mapping
+     * @param replaceColour Whether to replace the colour with the colour defined in the mapping
      * @return A Text object containing the potentially modified name with appropriate styling
      */
-    public static Text getStyledName(Text displayName, UUID uuid, Text name) {
+    public static Text getStyledName(Text displayName, UUID uuid, Text name, boolean replaceName,
+                                     boolean replaceColour) {
         DisplayMapping correctMapping = null;
 
         // Iterate over the mappings to find the correct match based on UUID or Minecraft name
@@ -48,21 +54,39 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
 
         // If a matching mapping is found, apply it; otherwise, return the original displayName
         if (correctMapping != null) {     // If a mapping could be found.
-            return applyMapping(displayName, correctMapping);
+            return applyMapping(displayName, correctMapping, replaceName, replaceColour);
         }
         // If the mapping couldn't be found, simply return what we got.
         return displayName;
     }
 
     /**
-     * Applies the mapping to a given message. It replaces the Minecraft name with the Discord nickname
-     * and applies color styling if defined in the mapping.
+     * Retrieves and applies the correct name mapping (if any) for a given Minecraft username or
+     * UUID.
+     * This method checks the mappings list to see if the provided displayName or uuid has a
+     * corresponding mapping, and if found, applies it by altering the name and color.
      *
-     * @param message The original in-game message or name
-     * @param mapping The DisplayMapping object containing the name and color mapping details
+     * @param displayName The original in-game name to be displayed
+     * @param uuid        The UUID of the Minecraft player
+     * @param name        The in-game name as a Text object
+     * @return A Text object containing the potentially modified name with appropriate styling
+     */
+    public static Text getStyledName(Text displayName, UUID uuid, Text name) {
+        return getStyledName(displayName, uuid, name, true, true);
+    }
+
+    /**
+     * Applies the mapping to a given message. It optionally replaces the Minecraft name with
+     * the Discord nickname and applies the colour styling.
+     *
+     * @param message       The original in-game message or name
+     * @param mapping       The DisplayMapping object containing the name and color mapping details
+     * @param replaceName   Whether to replace the name with the name defined in the mapping
+     * @param replaceColour Whether to replace the colour with the colour defined in the mapping
      * @return A new MutableText object with the mapping applied (replacements and color changes)
      */
-    public static MutableText applyMapping(Text message, DisplayMapping mapping) {
+    public static MutableText applyMapping(Text message, DisplayMapping mapping,
+                                           boolean replaceName, boolean replaceColour) {
         MutableText outputMessage = Text.empty();
 
         if (message == null) {
@@ -76,11 +100,11 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
             // Apply the mapping
             if (replacedText.contains(mapping.mc_name)) {
                 // Replace the string
-                if (mapping.discord_nick != null) {
+                if (mapping.discord_nick != null && replaceName) {
                     replacedText = replacedText.replace(mapping.mc_name, mapping.discord_nick);
                 }
                 // Apply color if specified
-                if (mapping.colour != null) {
+                if (mapping.colour != null && replaceColour) {
                     replacedStyle = replacedStyle.withColor(Integer.parseInt(mapping.colour, 16));
                 }
             }
@@ -97,34 +121,64 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
     }
 
     /**
-     * Naively applies styling and replacements to a given message.
-     * This method applies every name mapping in the mappings list to the message, regardless of context.
+     * Applies the mapping to a given message. It both replaces the Minecraft name with
+     * the Discord nickname and applies color styling if defined in the mapping.
      *
-     * @param message The original message to which mappings will be applied
+     * @param message The original in-game message or name
+     * @param mapping The DisplayMapping object containing the name and color mapping details
+     * @return A new MutableText object with the mapping applied (replacements and color changes)
+     */
+    public static MutableText applyMapping(Text message, DisplayMapping mapping) {
+        return applyMapping(message, mapping, true, true);
+    }
+
+    /**
+     * Naively applies styling and replacements to a given message.
+     * This method applies every name mapping in the mappings list to the message, regardless of
+     * context.
+     *
+     * @param message       The original message to which mappings will be applied
+     * @param replaceName   Whether to replace the name with the name defined in the mapping
+     * @param replaceColour Whether to replace the colour with the colour defined in the mapping
      * @return A new Text object with all applicable mappings and styles applied
      */
-    public static Text naivelyStyleText(Text message) {
+    public static Text naivelyStyleText(Text message, boolean replaceName, boolean replaceColour) {
         MutableText outputMessage = (MutableText) message;
 
         // Apply each mapping sequentially to the message
         for (DisplayMapping mapping : mappings) {
-            outputMessage = applyMapping(outputMessage, mapping);
+            outputMessage = applyMapping(outputMessage, mapping, replaceName, replaceColour);
         }
 
         // Return the final styled message
         return outputMessage;
     }
 
+    /**
+     * Naively applies styling and replacements to a given message.
+     * This method applies every name mapping in the mappings list to the message, regardless of
+     * context.
+     *
+     * @param message The original message to which mappings will be applied
+     * @return A new Text object with all applicable mappings and styles applied
+     */
+    public static Text naivelyStyleText(Text message) {
+        return naivelyStyleText(message, true, true);
+    }
+
 
     @Override
     public void onInitializeClient() {
-        // This entrypoint is suitable for setting up client-specific logic, such as rendering.
-        mappings = NameLinkAPI.getMappings();
-
-        if (mappings != null) {
-            LOGGER.info("{} initialised with {} mappings", MOD_ID, mappings.size());
-        } else {
-            LOGGER.error("{} initialised with NO mappings found", MOD_ID);
+        AutoConfig.register(SCNameLinkConfig.class, Toml4jConfigSerializer::new);
+        SCNameLinkConfig config = AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
+        if (!config.enableMod) {
+            NameLinkAPI.disableMod();
+            LOGGER.warn("Mod is disabled!");
+            return;
         }
+        mappings = NameLinkAPI.getMappings();
+        if (mappings != null)
+            LOGGER.info("{} initialised with {} mappings", MOD_ID, mappings.size());
+        else LOGGER.error("{} initialised with NO mappings found", MOD_ID);
     }
 }
