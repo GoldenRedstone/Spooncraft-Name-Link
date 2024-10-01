@@ -7,8 +7,11 @@ import me.shedaniel.autoconfig.AutoConfig;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.Nullable;
-import java.lang.reflect.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,15 +20,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * NameLinkAPI is a utility class responsible for fetching and caching mappings between
  * Minecraft names/UUIDs and Discord nicknames from an external API.
  * <p>
- * The class handles retrieving the mappings either from a remote server or, if that fails, from a cached
- * local file. It also manages the conversion of JSON data to Java objects and provides status reporting
+ * The class handles retrieving the mappings either from a remote server or, if that fails, from a
+ * cached
+ * local file. It also manages the conversion of JSON data to Java objects and provides status
+ * reporting
  * on the success or failure of these operations.
  */
 public class NameLinkAPI {
@@ -37,19 +40,24 @@ public class NameLinkAPI {
     // The file path to cache the JSON data locally in case of API failure.
     static final String CACHE_PATH = "config/spooncraft-name-link-cache.json";
 
-    static final SCNameLinkConfig CONFIG = AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
+    static final SCNameLinkConfig CONFIG =
+            AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
 
     // Tracks the current status of the API fetch and caching process
     static String status = "Working";
 
     /**
-     * Fetches the display name mappings from the external API. If an error occurs during the process,
+     * Fetches the display name mappings from the external API. If an error occurs during the
+     * process,
      * it attempts to load the mappings from the cached local file.
      * <p>
      * The status is updated to reflect whether the data was successfully fetched from the API
-     * ("Success"), retrieved from the cache ("Fallback"), or if the process failed entirely ("Failure").
+     * ({@code "Success"}), retrieved from the cache ({@code "Fallback"}), or if the process failed
+     * entirely
+     * ({@code "Failure"}).
      *
-     * @return A list of DisplayMapping objects, either from the API or the cached file, or an empty list in case of failure.
+     * @return A list of {@code DisplayMapping} objects, either from the API or the cached file, or an empty
+     * list in case of failure.
      */
     public static @Nullable List<DisplayMapping> getMappings() {
         status = "Working";
@@ -88,7 +96,7 @@ public class NameLinkAPI {
      * Loads the JSON data from the remote API URL and returns it as a string.
      *
      * @return The JSON response from the API as a string.
-     * @throws IOException If an I/O error occurs during the connection or reading process.
+     * @throws IOException        If an I/O error occurs during the connection or reading process.
      * @throws URISyntaxException If the API URL is incorrectly formatted.
      */
     private static String loadJsonFromUrl() throws IOException, URISyntaxException {
@@ -124,10 +132,10 @@ public class NameLinkAPI {
     }
 
     /**
-     * Converts a JSON string into a list of DisplayMapping objects using Gson.
+     * Converts a JSON string into a list of {@code DisplayMapping} objects using Gson.
      *
      * @param jsonData The JSON data as a string.
-     * @return A list of DisplayMapping objects parsed from the JSON string.
+     * @return A list of {@code DisplayMapping} objects parsed from the JSON string.
      * @throws IOException If an error occurs while parsing the JSON data.
      */
     private static List<DisplayMapping> loadJsonToObjects(String jsonData) throws IOException {
@@ -136,10 +144,12 @@ public class NameLinkAPI {
     }
 
     /**
-     * Loads the JSON data from the local cache file and converts it into a list of DisplayMapping objects.<br>
+     * Loads the JSON data from the local cache file and converts it into a list of
+     * {@code DisplayMapping}
+     * objects.<br>
      * This method is used as a fallback if the API request fails.
      *
-     * @return A list of DisplayMapping objects loaded from the cache file.
+     * @return A list of {@code DisplayMapping} objects loaded from the cache file.
      * @throws IOException If an error occurs while reading the cache file.
      */
     private static List<DisplayMapping> loadJsonFromFile() throws IOException {
@@ -150,11 +160,11 @@ public class NameLinkAPI {
     }
 
     /**
-     * Helper method to get the Type of List<DisplayMapping> for Gson parsing.
+     * Helper method to get the Type of {@code List<DisplayMapping>} for Gson parsing.
      * This method returns the type information required by Gson to correctly deserialize
-     * a list of DisplayMapping objects.
+     * a list of {@code DisplayMapping} objects.
      *
-     * @return The Type representing List<DisplayMapping>.
+     * @return The Type representing {@code List<DisplayMapping>}.
      */
     private static Type getDisplayMappingListType() {
         return new TypeToken<List<DisplayMapping>>() {}.getType();
@@ -163,10 +173,10 @@ public class NameLinkAPI {
     /**
      * Returns the current status of the API fetching and caching process.
      * The possible statuses are:<br>
-     * - "Working": The process is ongoing.<br>
-     * - "Success": Data was successfully fetched from the API.<br>
-     * - "Fallback": Data was loaded from the cache.<br>
-     * - "Failure": Both API and cache loading failed.<br>
+     * - {@code "Working"}: The process is ongoing.<br>
+     * - {@code "Success":} Data was successfully fetched from the API.<br>
+     * - {@code "Fallback"}: Data was loaded from the cache.<br>
+     * - {@code "Failure"}: Both API and cache loading failed.<br>
      *
      * @return The current status as a string.
      */

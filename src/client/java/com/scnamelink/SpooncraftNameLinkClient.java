@@ -80,7 +80,8 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
      * the Discord nickname and applies the colour styling.
      *
      * @param message       The original in-game message or name
-     * @param mapping       The DisplayMapping object containing the name and color mapping details
+     * @param mapping       The {@code DisplayMapping} object containing the name and color mapping
+     *                      details
      * @param replaceName   Whether to replace the name with the name defined in the mapping
      * @param replaceColour Whether to replace the colour with the colour defined in the mapping
      * @return A new MutableText object with the mapping applied (replacements and color changes)
@@ -125,7 +126,8 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
      * the Discord nickname and applies color styling if defined in the mapping.
      *
      * @param message The original in-game message or name
-     * @param mapping The DisplayMapping object containing the name and color mapping details
+     * @param mapping The {@code DisplayMapping} object containing the name and color mapping
+     *                details
      * @return A new MutableText object with the mapping applied (replacements and color changes)
      */
     public static MutableText applyMapping(Text message, DisplayMapping mapping) {
