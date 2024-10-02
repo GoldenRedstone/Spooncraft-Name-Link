@@ -2,10 +2,9 @@ package com.scnamelink;
 
 import com.scnamelink.config.SCNameLinkConfig;
 
-import me.shedaniel.autoconfig.AutoConfig;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import me.shedaniel.autoconfig.AutoConfig;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +38,8 @@ public class NameLinkAPI {
 
     // The file path to cache the JSON data locally in case of API failure.
     static final String CACHE_PATH = "config/spooncraft-name-link-cache.json";
+    static final int MAX_RETRIES = 5;
+    static final int BASE_DELAY_MS = 500;
 
     static final SCNameLinkConfig CONFIG =
             AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
@@ -56,7 +57,8 @@ public class NameLinkAPI {
      * entirely
      * ({@code "Failure"}).
      *
-     * @return A list of {@code DisplayMapping} objects, either from the API or the cached file, or an empty
+     * @return A list of {@code DisplayMapping} objects, either from the API or the cached file,
+     * or an empty
      * list in case of failure.
      */
     public static @Nullable List<DisplayMapping> getMappings() {
@@ -103,19 +105,55 @@ public class NameLinkAPI {
         StringBuilder result = new StringBuilder(70000);
         URI uri = new URI(CONFIG.apiLink);
         URL url = uri.toURL();
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
+        int retries = 0;
 
-        try (BufferedReader reader =
-                     new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
+        // Retry logic with exponential backoff
+        while (retries < MAX_RETRIES) {
+            HttpURLConnection conn = null;
+            try {
+                // Attempt to open the connection and read the data
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+
+                try (BufferedReader reader =
+                             new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+                }
+
+                // Return the result if successful
+                return result.toString();
+
+            } catch (IOException e) {
+                retries++;
+                if (retries == MAX_RETRIES) {
+                    throw new IOException("Failed to load JSON from URL after " + retries + " " +
+                                                  "retries", e);
+                }
+
+                // Calculate the exponential backoff delay
+                long backoffDelay = BASE_DELAY_MS * (1L << retries); // Exponential backoff:
+                // baseDelay * 2^retries
+
+                LOGGER.warn("Could not load JSON from URL. Retrying in {}ms (attempt {} of " + MAX_RETRIES + ")", backoffDelay, retries);
+
+                // Sleep before the next retry
+                try {
+                    Thread.sleep(backoffDelay);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new IOException("Retry was interrupted", ie);
+                }
+            } finally {
+                if (conn != null) {
+                    conn.disconnect(); // Always disconnect to free resources
+                }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-        return result.toString();
+
+        return result.toString(); // This should never be reached due to retries limit.
     }
 
     /**
