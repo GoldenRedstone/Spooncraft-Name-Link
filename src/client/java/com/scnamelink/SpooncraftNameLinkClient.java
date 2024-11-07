@@ -39,14 +39,14 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
      * @param replaceColour Whether to replace the colour with the colour defined in the mapping
      * @return A Text object containing the potentially modified name with appropriate styling
      */
-    public static Text getStyledName(Text displayName, UUID uuid, Text name, boolean replaceName,
+    public static Text getStyledName(Text displayName, UUID uuid, String name, boolean replaceName,
                                      boolean replaceColour) {
         DisplayMapping correctMapping = null;
 
         // Iterate over the mappings to find the correct match based on UUID or Minecraft name
         for (DisplayMapping mapping : mappings) {
             // If the UUID matches or the name matches, select the mapping and break
-            if (mapping.mc_uuid == uuid || Objects.equals(mapping.mc_name, name.getString())) {
+            if (Objects.equals(mapping.mc_uuid, uuid) || Objects.equals(mapping.mc_name, name)) {
                 correctMapping = mapping;
                 break;
             }
@@ -63,16 +63,18 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
     /**
      * Retrieves and applies the correct name mapping (if any) for a given Minecraft username or
      * UUID.
-     * This method checks the mappings list to see if the provided displayName or uuid has a
-     * corresponding mapping, and if found, applies it by altering the name and color.
      *
-     * @param displayName The original in-game name to be displayed
-     * @param uuid        The UUID of the Minecraft player
-     * @param name        The in-game name as a Text object
+     * @param displayName   The original in-game name to be displayed
+     * @param name          The in-game name as a Text object
+     * @param replaceName   Whether to replace the name with the name defined in the mapping
+     * @param replaceColour Whether to replace the colour with the colour defined in the mapping
      * @return A Text object containing the potentially modified name with appropriate styling
+     *
+     * @see #getStyledName(Text, UUID, String, boolean, boolean)
      */
-    public static Text getStyledName(Text displayName, UUID uuid, Text name) {
-        return getStyledName(displayName, uuid, name, true, true);
+    public static Text getStyledName(Text displayName, String name, boolean replaceName,
+                                     boolean replaceColour) {
+        return getStyledName(displayName, new UUID(0, 0), name, replaceName, replaceColour);
     }
 
     /**
@@ -119,19 +121,6 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
         }, Style.EMPTY);
 
         return outputMessage;
-    }
-
-    /**
-     * Applies the mapping to a given message. It both replaces the Minecraft name with
-     * the Discord nickname and applies color styling if defined in the mapping.
-     *
-     * @param message The original in-game message or name
-     * @param mapping The {@code DisplayMapping} object containing the name and color mapping
-     *                details
-     * @return A new MutableText object with the mapping applied (replacements and color changes)
-     */
-    public static MutableText applyMapping(Text message, DisplayMapping mapping) {
-        return applyMapping(message, mapping, true, true);
     }
 
     /**
