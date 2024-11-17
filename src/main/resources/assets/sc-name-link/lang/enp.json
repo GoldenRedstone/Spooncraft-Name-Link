@@ -7,5 +7,10 @@
     "text.autoconfig.scnamelink.option.replacenametag": "Nicknames in nametokens",
     "text.autoconfig.scnamelink.option.colournametag": "Hue player nametokens",
     "text.autoconfig.scnamelink.option.replacechat": "Nicknames in chat",
-    "text.autoconfig.scnamelink.option.colourchat": "Hue names in chat"
+    "text.autoconfig.scnamelink.option.colourchat": "Hue names in chat",
+    "text.scnamelink.status.disabled": "SpooncraftNameLink is off.",
+    "text.scnamelink.status.working": "SpooncraftNameLink has not fulcome setting up yet.",
+    "text.scnamelink.status.fallback": "SpooncraftNameLink could not reach the outreckoner. Using stored fallback.",
+    "text.scnamelink.status.failure": "SpooncraftNameLink could not reach the outreckoner or use stored fallback.",
+    "text.scnamelink.status.success": "Loaded becomings from the outreckoner."
 }

@@ -168,6 +168,20 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
         return mappings.size();
     }
 
+    public static Text getStatusString() {
+        String status = NameLinkAPI.getStatus();
+        return switch (status) {
+            case "Success" ->
+                    Text.translatable("text.scnamelink.status.success").formatted(Formatting.WHITE);
+            case "Working" ->
+                    Text.translatable("text.scnamelink.status.working").formatted(Formatting.YELLOW);
+            case "Fallback" ->
+                    Text.translatable("text.scnamelink.status.fallback").formatted(Formatting.RED);
+            case "Failure" ->
+                    Text.translatable("text.scnamelink.status.failure").formatted(Formatting.RED, Formatting.BOLD);
+            default -> Text.of(NameLinkAPI.getStatus());
+        };
+    }
 
     @Override
     public void onInitializeClient() {
@@ -184,5 +198,6 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
             LOGGER.warn("Mod disabled.");
             return;
         }
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> CommandManager.register(dispatcher));
     }
 }

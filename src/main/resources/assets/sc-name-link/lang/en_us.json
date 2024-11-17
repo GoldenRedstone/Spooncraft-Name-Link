@@ -7,5 +7,10 @@
     "text.autoconfig.scnamelink.option.replacenametag": "Nicknames in nametags",
     "text.autoconfig.scnamelink.option.colournametag": "Color player nametags",
     "text.autoconfig.scnamelink.option.replacechat": "Nicknames in chat",
-    "text.autoconfig.scnamelink.option.colourchat": "Color names in chat"
+    "text.autoconfig.scnamelink.option.colourchat": "Color names in chat",
+    "text.scnamelink.status.disabled": "SpooncraftNameLink is disabled.",
+    "text.scnamelink.status.working": "SpooncraftNameLink has not finished setting up yet.",
+    "text.scnamelink.status.fallback": "SpooncraftNameLink could not reach the server. Using cached fallback.",
+    "text.scnamelink.status.failure": "SpooncraftNameLink could not reach the server or find a fallback.",
+    "text.scnamelink.status.success": "Loaded mappings from the server."
 }
