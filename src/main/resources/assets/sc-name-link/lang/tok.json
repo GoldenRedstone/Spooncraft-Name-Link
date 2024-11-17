@@ -1,0 +1,16 @@
+{
+    "text.autoconfig.scnamelink.title": "ilo nimi Spooncraft",
+    "text.autoconfig.scnamelink.option.enableMod": "o pali e ilo",
+    "text.autoconfig.scnamelink.option.apiLink": "len API",
+    "text.autoconfig.scnamelink.option.replacetablist": "nimi pi toki poka lon palisa",
+    "text.autoconfig.scnamelink.option.colourtablist": "kule e nimi lon palisa",
+    "text.autoconfig.scnamelink.option.replacenametag": "nimi pi toki poka lon nimi lipu",
+    "text.autoconfig.scnamelink.option.colournametag": "kule e nimi pi jan",
+    "text.autoconfig.scnamelink.option.replacechat": "nimi pi toki poka lon toki",
+    "text.autoconfig.scnamelink.option.colourchat": "kule e nimi lon toki",
+    "text.scnamelink.status.disabled": "ilo nimi Spooncraft li pini.",
+    "text.scnamelink.status.working": "ilo nimi Spooncraft li awen pali.",
+    "text.scnamelink.status.fallback": "ilo nimi Spooncraft li ken ala kama jo e ilo pi lawa tomo. o pana kepeken ilo kama sina.",
+    "text.scnamelink.status.failure": "ilo nimi Spooncraft li ken ala kama jo e ilo pi lawa tomo anu ilo kama.",
+    "text.scnamelink.status.success": "ilo li kama tan ilo pi lawa tomo."
+}

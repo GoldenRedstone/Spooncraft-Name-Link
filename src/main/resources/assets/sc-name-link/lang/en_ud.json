@@ -1,11 +1,16 @@
 {
-    "text.autoconfig.scnamelink.title": "Spooncraft Name Link",
-    "text.autoconfig.scnamelink.option.enableMod": "Enable Mod",
-    "text.autoconfig.scnamelink.option.apiLink": "API Link",
-    "text.autoconfig.scnamelink.option.replacetablist": "Nicknames in nametags",
-    "text.autoconfig.scnamelink.option.colourtablist": "Colour player nametags",
-    "text.autoconfig.scnamelink.option.replacenametag": "Nicknames in nametags",
-    "text.autoconfig.scnamelink.option.colournametag": "Colour player nametags",
-    "text.autoconfig.scnamelink.option.replacechat": "Nicknames in chat",
-    "text.autoconfig.scnamelink.option.colourchat": "Colour names in chat"
+    "text.autoconfig.scnamelink.title": "ʞuᴉꞀ ǝɯɐN ʇɟɐɹɔuoodS",
+    "text.autoconfig.scnamelink.option.enableMod": "poW ǝꞁqɐuƎ",
+    "text.autoconfig.scnamelink.option.apiLink": "ʞuᴉꞀ IԀⱯ",
+    "text.autoconfig.scnamelink.option.replacetablist": "ʇsᴉꞁqɐʇ ǝɥʇ uᴉ sǝɯɐuʞɔᴉN",
+    "text.autoconfig.scnamelink.option.colourtablist": "ʇsᴉꞁqɐʇ ǝɥʇ uᴉ sǝɯɐu ɹnoꞁoƆ",
+    "text.autoconfig.scnamelink.option.replacenametag": "sᵷɐʇǝɯɐu uᴉ sǝɯɐuʞɔᴉN",
+    "text.autoconfig.scnamelink.option.colournametag": "sᵷɐʇǝɯɐu ɹǝʎɐꞁd ɹnoꞁoƆ",
+    "text.autoconfig.scnamelink.option.replacechat": "ʇɐɥɔ uᴉ sǝɯɐuʞɔᴉN",
+    "text.autoconfig.scnamelink.option.colourchat": "ʇɐɥɔ uᴉ sǝɯɐu ɹnoꞁoƆ",
+    "text.scnamelink.status.disabled": "˙pǝꞁqɐsᴉp sᴉ ʞuᴉꞀǝɯɐNʇɟɐɹɔuoodS",
+    "text.scnamelink.status.working": "˙ʇǝʎ dn ᵷuᴉʇʇǝs pǝɥsᴉuᴉɟ ʇou sɐɥ ʞuᴉꞀǝɯɐNʇɟɐɹɔuoodS",
+    "text.scnamelink.status.fallback": "˙ʞɔɐqꞁꞁɐɟ pǝɥɔɐɔ ᵷuᴉs∩ ˙ɹǝʌɹǝs ǝɥʇ ɥɔɐǝɹ ʇou pꞁnoɔ ʞuᴉꞀǝɯɐNʇɟɐɹɔuoodS",
+    "text.scnamelink.status.failure": "˙ʞɔɐqꞁꞁɐɟ ɐ puᴉɟ ɹo ɹǝʌɹǝs ǝɥʇ ɥɔɐǝɹ ʇou pꞁnoɔ ʞuᴉꞀǝɯɐNʇɟɐɹɔuoodS",
+    "text.scnamelink.status.success": "˙ɹǝʌɹǝs ǝɥʇ ɯoɹɟ sᵷuᴉddɐɯ pǝpɐoꞀ"
 }
