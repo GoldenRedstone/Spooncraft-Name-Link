@@ -4,9 +4,11 @@ import com.scnamelink.config.SCNameLinkConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,13 +20,16 @@ import java.util.*;
 public class SpooncraftNameLinkClient implements ClientModInitializer {
 
     // The mod ID as used in logging
-    public static final String MOD_ID = "SC-Name-Link";
+    static final String MOD_ID = "scnamelink";
 
     // Logger for outputting information to the console and log files
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+
+    static SCNameLinkConfig config;
 
     // List of mappings for replacement and optional color changes
-    static List<DisplayMapping> mappings = new ArrayList<>();
+    private static List<DisplayMapping> mappings = new ArrayList<>();
+
 
     /**
      * Retrieves and applies the correct name mapping (if any) for a given Minecraft username or
@@ -69,7 +74,6 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
      * @param replaceName   Whether to replace the name with the name defined in the mapping
      * @param replaceColour Whether to replace the colour with the colour defined in the mapping
      * @return A Text object containing the potentially modified name with appropriate styling
-     *
      * @see #getStyledName(Text, UUID, String, boolean, boolean)
      */
     public static Text getStyledName(Text displayName, String name, boolean replaceName,
@@ -92,7 +96,7 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
                                            boolean replaceName, boolean replaceColour) {
         MutableText outputMessage = Text.empty();
 
-        if (message == null) {
+        if (message == null || message.getString().isEmpty() || mapping == null) {
             return outputMessage;
         }
 
@@ -145,31 +149,40 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
         return outputMessage;
     }
 
+
     /**
-     * Naively applies styling and replacements to a given message.
-     * This method applies every name mapping in the mappings list to the message, regardless of
-     * context.
+     * Retrieves the mappings from the specified source URL or the default URL if none is provided.
+     * If the mod is disabled in the configuration, it disables the mod and logs a warning.
      *
-     * @param message The original message to which mappings will be applied
-     * @return A new Text object with all applicable mappings and styles applied
+     * @param source The URL from which to fetch the mappings. If null or empty, the default URL is
+     *               used.
+     * @return The number of mappings retrieved.
      */
-    public static Text naivelyStyleText(Text message) {
-        return naivelyStyleText(message, true, true);
+    public static int getMappings(String source) {
+        String s = source;
+        if (s == null || s.isEmpty())
+            s = "https://gwaff.uqcloud.net/api/spooncraft";
+
+        mappings = NameLinkAPI.getMappings(s);
+
+        return mappings.size();
     }
 
 
     @Override
     public void onInitializeClient() {
         AutoConfig.register(SCNameLinkConfig.class, Toml4jConfigSerializer::new);
-        SCNameLinkConfig config = AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
+        config = AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
+
+        final int count = getMappings(config.apiLink);
+        if (count > 0)
+            LOGGER.info("{} initialised with {} mappings", MOD_ID, mappings.size());
+        else LOGGER.warn("{} initialised with NO mappings found", MOD_ID);
+
         if (!config.enableMod) {
             NameLinkAPI.disableMod();
-            LOGGER.warn("Mod is disabled!");
+            LOGGER.warn("Mod disabled.");
             return;
         }
-        mappings = NameLinkAPI.getMappings();
-        if (mappings != null)
-            LOGGER.info("{} initialised with {} mappings", MOD_ID, mappings.size());
-        else LOGGER.error("{} initialised with NO mappings found", MOD_ID);
     }
 }

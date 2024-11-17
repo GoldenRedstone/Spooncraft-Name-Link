@@ -42,6 +42,6 @@ public abstract class PlayerListEntryMixin {
         Text label = SpooncraftNameLinkClient.getStyledName(displayName, profile.getId(),
                                                             profile.getName(),
                                                             CONFIG.replacetablist, CONFIG.colourtablist);
-        cir.setReturnValue(Text.of(String.valueOf(profile.getId())));
+        cir.setReturnValue(label);
     }
 }

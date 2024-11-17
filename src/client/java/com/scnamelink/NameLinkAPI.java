@@ -1,10 +1,7 @@
 package com.scnamelink;
 
-import com.scnamelink.config.SCNameLinkConfig;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import me.shedaniel.autoconfig.AutoConfig;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,35 +38,30 @@ public class NameLinkAPI {
     static final int MAX_RETRIES = 5;
     static final int BASE_DELAY_MS = 500;
 
-    static final SCNameLinkConfig CONFIG =
-            AutoConfig.getConfigHolder(SCNameLinkConfig.class).getConfig();
-
     // Tracks the current status of the API fetch and caching process
     static String status = "Working";
 
     /**
      * Fetches the display name mappings from the external API. If an error occurs during the
-     * process,
-     * it attempts to load the mappings from the cached local file.
+     * process, it attempts to load the mappings from the cached local file.
      * <p>
      * The status is updated to reflect whether the data was successfully fetched from the API
      * ({@code "Success"}), retrieved from the cache ({@code "Fallback"}), or if the process failed
-     * entirely
-     * ({@code "Failure"}).
+     * entirely ({@code "Failure"}).
      *
+     * @param source The URL of the API to fetch the JSON data from.
      * @return A list of {@code DisplayMapping} objects, either from the API or the cached file,
-     * or an empty
-     * list in case of failure.
+     * or an empty list in case of failure.
      */
-    public static @Nullable List<DisplayMapping> getMappings() {
+    public static List<DisplayMapping> getMappings(String source) {
         status = "Working";
 
         try {
             // Load JSON from URL
-            String jsonData = loadJsonFromUrl();
+            final String jsonData = loadJsonFromUrl(source);
             LOGGER.info("Load data from url");
             // Convert String JSON into Java objects
-            List<DisplayMapping> displayMappings = loadJsonToObjects(jsonData);
+            final List<DisplayMapping> displayMappings = loadJsonToObjects(jsonData);
             LOGGER.info("Converted sting to Object");
             // Save to file as a backup
             saveJsonToFile(jsonData);
@@ -89,7 +81,7 @@ public class NameLinkAPI {
             } catch (RuntimeException | IOException ex) {
                 status = "Failure";
                 LOGGER.warn("Could not reach the server or find a fallback.");
-                return new ArrayList<DisplayMapping>();
+                return new ArrayList<>(0);
             }
         }
     }
@@ -97,14 +89,14 @@ public class NameLinkAPI {
     /**
      * Loads the JSON data from the remote API URL and returns it as a string.
      *
+     * @param source The URL of the API to fetch the JSON data from.
      * @return The JSON response from the API as a string.
      * @throws IOException        If an I/O error occurs during the connection or reading process.
      * @throws URISyntaxException If the API URL is incorrectly formatted.
      */
-    private static String loadJsonFromUrl() throws IOException, URISyntaxException {
-        StringBuilder result = new StringBuilder(70000);
-        URI uri = new URI(CONFIG.apiLink);
-        URL url = uri.toURL();
+    private static String loadJsonFromUrl(String source) throws IOException, URISyntaxException {
+        StringBuilder result = new StringBuilder(50000);
+        URL url = new URI(source).toURL();
         int retries = 0;
 
         // Retry logic with exponential backoff

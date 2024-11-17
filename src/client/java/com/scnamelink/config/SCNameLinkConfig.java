@@ -11,7 +11,7 @@ public class SCNameLinkConfig implements ConfigData {
     // Whether to enable the mod. Game must be restarted after enabling.
     public boolean enableMod = true;
     // The uri of the data api. Game must be restarted after changing.
-    public String apiLink = "https://gwaff.uqcloud.net/api/spooncraft";
+    public String apiLink = "";
 
     // Whether to replace names in the tablist using discord nicknames.
     public boolean replacetablist = true;
