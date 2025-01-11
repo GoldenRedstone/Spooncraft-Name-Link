@@ -25,7 +25,7 @@ public class ChatHudMixin {
 
         Text message = args.get(1);
 
-        args.set(1, SpooncraftNameLinkClient.naivelyStyleText(message,CONFIG.replacechat,
-                                                              CONFIG.colourchat));
+        args.set(1, SpooncraftNameLinkClient.getStyledChat(message, CONFIG.replacechat,
+                                                           CONFIG.colourchat));
     }
 }

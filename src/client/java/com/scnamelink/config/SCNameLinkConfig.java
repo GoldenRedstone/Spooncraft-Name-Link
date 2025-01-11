@@ -26,5 +26,5 @@ public class SCNameLinkConfig implements ConfigData {
     // Whether to replace names in the chat using discord nicknames.
     public boolean replacechat = true;
     // Whether to colour names in the chat using the colour from discord.
-    public boolean colourchat = false;
+    public boolean colourchat = true;
 }
