@@ -1,0 +1,19 @@
+{
+    "text.autoconfig.scnamelink.title": "Spooncraft Name Link",
+    "text.autoconfig.scnamelink.option.enableMod": "Hoist the Mod",
+    "text.autoconfig.scnamelink.option.apiLink": "API Map o' Treasure",
+    "text.autoconfig.scnamelink.option.replacetablist": "Use Nicknames in the Crew List",
+    "text.autoconfig.scnamelink.option.colourtablist": "Colour Names in the Crew List",
+    "text.autoconfig.scnamelink.option.replacenametag": "Show Nicknames in Name Banners",
+    "text.autoconfig.scnamelink.option.colournametag": "Colour the Name Banners o' the Crew",
+    "text.autoconfig.scnamelink.option.replacechat": "Nicknames in the Pirate Chatter",
+    "text.autoconfig.scnamelink.option.colourchat": "Colour Names in the Pirate Chatter",
+    "text.scnamelink.status.disabled": "SpooncraftNameLink be struck down n’ disabled.",
+    "text.scnamelink.status.working": "SpooncraftNameLink be still settin' sail fer setup.",
+    "text.scnamelink.status.fallback": "SpooncraftNameLink failed to reach the server. Usin’ cached fallback charts.",
+    "text.scnamelink.status.failure": "SpooncraftNameLink be lost at sea — no server or fallback to be found!",
+    "text.scnamelink.status.success": "Mappings loaded from the server’s hoard.",
+    "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "Restart the game after hoistin’ this option.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "Leave this map blank if ye don’t know the way.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Restart the voyage game after chartin’ a new map."
+}
