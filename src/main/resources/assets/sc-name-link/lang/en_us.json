@@ -12,5 +12,8 @@
     "text.scnamelink.status.working": "SpooncraftNameLink has not finished setting up yet.",
     "text.scnamelink.status.fallback": "SpooncraftNameLink could not reach the server. Using cached fallback.",
     "text.scnamelink.status.failure": "SpooncraftNameLink could not reach the server or find a fallback.",
-    "text.scnamelink.status.success": "Loaded mappings from the server."
+    "text.scnamelink.status.success": "Loaded mappings from the server.",
+    "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "Game should be restarted after enabling.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "Leave blank if unknown.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Game should be restarted after changing."
 }

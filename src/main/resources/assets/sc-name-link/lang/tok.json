@@ -12,5 +12,8 @@
     "text.scnamelink.status.working": "ilo nimi Spooncraft li awen pali.",
     "text.scnamelink.status.fallback": "ilo nimi Spooncraft li ken ala kama jo e ilo pi lawa tomo. o pana kepeken ilo kama sina.",
     "text.scnamelink.status.failure": "ilo nimi Spooncraft li ken ala kama jo e ilo pi lawa tomo anu ilo kama.",
-    "text.scnamelink.status.success": "ilo li kama tan ilo pi lawa tomo."
+    "text.scnamelink.status.success": "ilo li kama tan ilo pi lawa tomo.",
+    "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "o pini musi o open sin e musi.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "o pana e ijo ala, la sina sona ala.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "o pini musi o open sin e musi."
 }

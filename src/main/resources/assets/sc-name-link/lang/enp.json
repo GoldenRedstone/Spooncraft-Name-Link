@@ -12,5 +12,8 @@
     "text.scnamelink.status.working": "SpooncraftNameLink has not fulcome setting up yet.",
     "text.scnamelink.status.fallback": "SpooncraftNameLink could not reach the outreckoner. Using stored fallback.",
     "text.scnamelink.status.failure": "SpooncraftNameLink could not reach the outreckoner or use stored fallback.",
-    "text.scnamelink.status.success": "Loaded becomings from the outreckoner."
+    "text.scnamelink.status.success": "Loaded becomings from the outreckoner.",
+    "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "Fand edstarting your game after laying on.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "Leave blank if unknowed.",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Fand edstarting your game after wending."
 }

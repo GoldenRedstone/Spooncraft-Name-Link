@@ -138,8 +138,8 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
             if (event != null) {
                 HoverEvent.EntityContent value = event.getValue(HoverEvent.Action.SHOW_ENTITY);
                 if (value != null && value.name.isPresent()) {
-                    newText = (MutableText) getStyledName(newText, value.uuid, String.valueOf(value.name), replaceName, replaceColour)
-                            .setStyle(newText.getStyle().withHoverEvent(event));
+                    newText = (MutableText) getStyledName(newText, value.uuid, String.valueOf(value.name), replaceName, replaceColour);
+                    newText.setStyle(newText.getStyle().withHoverEvent(event));
                 }
             }
 

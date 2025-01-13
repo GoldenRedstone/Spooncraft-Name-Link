@@ -17,13 +17,11 @@ import java.util.Objects;
 
 @Mixin (ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {
-    @Inject (method = "onGameJoin(Lnet/minecraft/network/packet/s2c/play/GameJoinS2CPacket;)V",
-            at = @At ("TAIL"))
+    @Inject(method = "onGameJoin(Lnet/minecraft/network/packet/s2c/play/GameJoinS2CPacket;)V", at = @At("TAIL"))
     public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
-        ChatHud mcch = MinecraftClient.getInstance().inGameHud.getChatHud();
-        if (mcch != null) {
-            if (!Objects.equals(NameLinkAPI.getStatus(), "Success"))
-                mcch.addMessage(SpooncraftNameLinkClient.getStatusString());
+        ChatHud chatHud = MinecraftClient.getInstance().inGameHud.getChatHud();
+        if (chatHud != null && !NameLinkAPI.getStatus().equals("Success") && !NameLinkAPI.getStatus().equals("Disabled")) {
+            chatHud.addMessage(SpooncraftNameLinkClient.getStatusString());
         }
     }
 }

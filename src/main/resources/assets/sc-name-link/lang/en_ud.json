@@ -12,5 +12,8 @@
     "text.scnamelink.status.working": "˙ʇǝʎ dn ᵷuᴉʇʇǝs pǝɥsᴉuᴉɟ ʇou sɐɥ ʞuᴉꞀǝɯɐNʇɟɐɹɔuoodS",
     "text.scnamelink.status.fallback": "˙ʞɔɐqꞁꞁɐɟ pǝɥɔɐɔ ᵷuᴉs∩ ˙ɹǝʌɹǝs ǝɥʇ ɥɔɐǝɹ ʇou pꞁnoɔ ʞuᴉꞀǝɯɐNʇɟɐɹɔuoodS",
     "text.scnamelink.status.failure": "˙ʞɔɐqꞁꞁɐɟ ɐ puᴉɟ ɹo ɹǝʌɹǝs ǝɥʇ ɥɔɐǝɹ ʇou pꞁnoɔ ʞuᴉꞀǝɯɐNʇɟɐɹɔuoodS",
-    "text.scnamelink.status.success": "˙ɹǝʌɹǝs ǝɥʇ ɯoɹɟ sᵷuᴉddɐɯ pǝpɐoꞀ"
+    "text.scnamelink.status.success": "˙ɹǝʌɹǝs ǝɥʇ ɯoɹɟ sᵷuᴉddɐɯ pǝpɐoꞀ",
+    "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "˙ᵷuᴉꞁqɐuǝ ɹǝʇɟɐ pǝʇɹɐʇsǝɹ ǝq pꞁnoɥs ǝɯɐ⅁",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "˙uʍouʞun ɟᴉ ʞuɐꞁq ǝʌɐǝꞀ",
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "˙ᵷuᴉᵷuɐɥɔ ɹǝʇɟɐ pǝʇɹɐʇsǝɹ ǝq pꞁnoɥs ǝɯɐ⅁"
 }
