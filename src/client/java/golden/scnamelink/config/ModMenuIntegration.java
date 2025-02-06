@@ -1,4 +1,4 @@
-package com.scnamelink.config;
+package golden.scnamelink.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

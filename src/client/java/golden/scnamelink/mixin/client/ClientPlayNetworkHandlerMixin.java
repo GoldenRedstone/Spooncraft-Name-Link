@@ -1,19 +1,15 @@
-package com.scnamelink.mixin.client;
+package golden.scnamelink.mixin.client;
 
-import com.scnamelink.NameLinkAPI;
-import com.scnamelink.SpooncraftNameLinkClient;
+import golden.scnamelink.NameLinkAPI;
+import golden.scnamelink.SpooncraftNameLinkClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Objects;
 
 @Mixin (ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {

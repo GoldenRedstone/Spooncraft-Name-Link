@@ -17,10 +17,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"client": [
-			"com.scnamelink.SpooncraftNameLinkClient"
+			"golden.scnamelink.SpooncraftNameLinkClient"
 		],
 		"modmenu": [
-			"com.scnamelink.config.ModMenuIntegration"
+			"golden.scnamelink.config.ModMenuIntegration"
 		]
 	},
 	"mixins": [

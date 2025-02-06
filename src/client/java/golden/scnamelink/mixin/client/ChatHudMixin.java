@@ -1,7 +1,7 @@
-package com.scnamelink.mixin.client;
+package golden.scnamelink.mixin.client;
 
-import com.scnamelink.SpooncraftNameLinkClient;
-import com.scnamelink.config.SCNameLinkConfig;
+import golden.scnamelink.SpooncraftNameLinkClient;
+import golden.scnamelink.config.SCNameLinkConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.text.Text;

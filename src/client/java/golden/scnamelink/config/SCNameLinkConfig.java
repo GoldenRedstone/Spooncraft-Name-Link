@@ -1,4 +1,4 @@
-package com.scnamelink.config;
+package golden.scnamelink.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;

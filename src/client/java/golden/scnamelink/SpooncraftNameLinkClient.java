@@ -1,6 +1,6 @@
-package com.scnamelink;
+package golden.scnamelink;
 
-import com.scnamelink.config.SCNameLinkConfig;
+import golden.scnamelink.config.SCNameLinkConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;

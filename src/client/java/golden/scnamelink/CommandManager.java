@@ -1,10 +1,9 @@
-package com.scnamelink;
+package golden.scnamelink;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.text.Text;
 
 public class CommandManager {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {

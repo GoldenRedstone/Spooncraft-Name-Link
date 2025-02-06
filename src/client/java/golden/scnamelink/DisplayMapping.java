@@ -1,4 +1,4 @@
-package com.scnamelink;
+package golden.scnamelink;
 
 import java.util.UUID;
 

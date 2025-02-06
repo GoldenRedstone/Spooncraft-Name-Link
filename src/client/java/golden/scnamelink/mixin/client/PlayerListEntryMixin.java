@@ -1,12 +1,11 @@
-package com.scnamelink.mixin.client;
+package golden.scnamelink.mixin.client;
 
-import com.scnamelink.SpooncraftNameLinkClient;
-import com.scnamelink.config.SCNameLinkConfig;
+import golden.scnamelink.SpooncraftNameLinkClient;
+import golden.scnamelink.config.SCNameLinkConfig;
 
 import me.shedaniel.autoconfig.AutoConfig;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -16,8 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.UUID;
 
 @Mixin (PlayerListEntry.class)
 public abstract class PlayerListEntryMixin {
