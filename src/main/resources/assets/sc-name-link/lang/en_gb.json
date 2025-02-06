@@ -15,5 +15,6 @@
     "text.scnamelink.status.success": "Loaded mappings from the server.",
     "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "Game should be restarted after enabling.",
     "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "Leave blank if unknown.",
-    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Game should be restarted after changing."
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Game should be restarted after changing.",
+    "gui.scnamelink.hover_nickname": "Nickname: %s"
 }

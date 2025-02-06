@@ -2,7 +2,7 @@
     "text.autoconfig.scnamelink.title": "ilo nimi Spooncraft",
     "text.autoconfig.scnamelink.option.enableMod": "o pali e ilo",
     "text.autoconfig.scnamelink.option.apiLink": "len API",
-    "text.autoconfig.scnamelink.option.replacetablist": "nimi pi toki poka lon palisa",
+    "text.autoconfig.scnamelink.option.replacetablist": "nimi pi toki poka lon palisa lipu",
     "text.autoconfig.scnamelink.option.colourtablist": "kule e nimi lon palisa",
     "text.autoconfig.scnamelink.option.replacenametag": "nimi pi toki poka lon nimi lipu",
     "text.autoconfig.scnamelink.option.colournametag": "kule e nimi pi jan",
@@ -15,5 +15,6 @@
     "text.scnamelink.status.success": "ilo li kama tan ilo pi lawa tomo.",
     "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "o pini musi o open sin e musi.",
     "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "o pana e ijo ala, la sina sona ala.",
-    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "o pini musi o open sin e musi."
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "o pini musi o open sin e musi.",
+    "gui.scnamelink.hover_nickname": "nimi poka: %s"
 }

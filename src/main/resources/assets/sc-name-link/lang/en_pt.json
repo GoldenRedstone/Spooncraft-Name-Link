@@ -15,5 +15,6 @@
     "text.scnamelink.status.success": "Mappings loaded from the server’s hoard.",
     "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "Restart the game after hoistin’ this option.",
     "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "Leave this map blank if ye don’t know the way.",
-    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Restart the voyage game after chartin’ a new map."
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Restart the voyage game after chartin’ a new map.",
+    "gui.scnamelink.hover_nickname": "Nickname: %s"
 }

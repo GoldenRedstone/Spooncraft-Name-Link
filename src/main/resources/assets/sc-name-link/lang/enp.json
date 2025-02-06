@@ -15,5 +15,6 @@
     "text.scnamelink.status.success": "Loaded becomings from the outreckoner.",
     "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "Fand edstarting your game after laying on.",
     "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "Leave blank if unknowed.",
-    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Fand edstarting your game after wending."
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "Fand edstarting your game after wending.",
+    "gui.scnamelink.hover_nickname": "Nickname: %s"
 }

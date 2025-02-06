@@ -15,5 +15,6 @@
     "text.scnamelink.status.success": "˙ɹǝʌɹǝs ǝɥʇ ɯoɹɟ sᵷuᴉddɐɯ pǝpɐoꞀ",
     "text.autoconfig.scnamelink.option.enableMod.@Tooltip": "˙ᵷuᴉꞁqɐuǝ ɹǝʇɟɐ pǝʇɹɐʇsǝɹ ǝq pꞁnoɥs ǝɯɐ⅁",
     "text.autoconfig.scnamelink.option.apiLink.@Tooltip[0]": "˙uʍouʞun ɟᴉ ʞuɐꞁq ǝʌɐǝꞀ",
-    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "˙ᵷuᴉᵷuɐɥɔ ɹǝʇɟɐ pǝʇɹɐʇsǝɹ ǝq pꞁnoɥs ǝɯɐ⅁"
+    "text.autoconfig.scnamelink.option.apiLink.@Tooltip[1]": "˙ᵷuᴉᵷuɐɥɔ ɹǝʇɟɐ pǝʇɹɐʇsǝɹ ǝq pꞁnoɥs ǝɯɐ⅁",
+    "gui.scnamelink.hover_nickname": "s% :ǝɯɐuʞɔᴉN"
 }

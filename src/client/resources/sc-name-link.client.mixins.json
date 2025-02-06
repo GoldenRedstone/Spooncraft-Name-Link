@@ -6,9 +6,10 @@
     "ChatHudMixin",
     "ClientPlayNetworkHandlerMixin",
     "PlayerEntityRendererMixin",
-    "PlayerListEntryMixin"
+    "PlayerListEntryMixin",
+    "HoverEventMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

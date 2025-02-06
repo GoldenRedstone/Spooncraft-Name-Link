@@ -32,6 +32,23 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
     private static List<DisplayMapping> mappings = new ArrayList<>();
 
     /**
+     * Retrieves a mapping matching either the UUID or the name of the Minecraft player.
+     *
+     * @param uuid The {@code UUID} of the Minecraft player
+     * @param name The in-game name of the Minecraft player
+     * @return The {@code DisplayMapping} object if found, otherwise null
+     */
+    public static DisplayMapping getMapping(UUID uuid, String name) {
+        // Iterate over the mappings to find the correct match based on UUID or Minecraft name
+        for (DisplayMapping mapping : mappings) {
+            if (Objects.equals(mapping.mc_uuid, uuid) || Objects.equals(mapping.mc_name, name)) {
+                return mapping;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Applies the mapping to a given message. It optionally replaces the Minecraft name with
      * the Discord nickname and applies the colour styling.
      *
@@ -43,7 +60,7 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
      * @return A new MutableText object with the mapping applied (replacements and color changes)
      */
     static MutableText applyMapping(Text message, DisplayMapping mapping,
-                                           boolean replaceName, boolean replaceColour) {
+                                    boolean replaceName, boolean replaceColour) {
         if (message == null || message.getString().isEmpty() || mapping == null) {
             return Text.empty();
         }
@@ -71,7 +88,7 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
             outputMessage.append(newText);
 
             return Optional.empty();  // Continue visiting
-       }, Style.EMPTY);
+        }, Style.EMPTY);
 
         return outputMessage;
     }
@@ -91,12 +108,9 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
      */
     public static Text getStyledName(Text displayName, UUID uuid, String name, boolean replaceName,
                                      boolean replaceColour) {
-        // Iterate over the mappings to find the correct match based on UUID or Minecraft name
-        for (DisplayMapping mapping : mappings) {
-            // If the UUID matches or the name matches, apply the mapping and return it
-            if (Objects.equals(mapping.mc_uuid, uuid) || Objects.equals(mapping.mc_name, name)) {
-                return applyMapping(displayName, mapping, replaceName, replaceColour);
-            }
+        DisplayMapping mapping = getMapping(uuid, name);
+        if (mapping != null) {
+            return applyMapping(displayName, mapping, replaceName, replaceColour);
         }
         return displayName;
     }
@@ -113,7 +127,7 @@ public class SpooncraftNameLinkClient implements ClientModInitializer {
      */
     public static Text getStyledName(Text displayName, String name, boolean replaceName,
                                      boolean replaceColour) {
-        return getStyledName(displayName, UUID.fromString("00000000-0000-0000-0000-000000000000"), name, replaceName, replaceColour);
+        return getStyledName(displayName, UUID.randomUUID(), name, replaceName, replaceColour);
     }
 
     /**

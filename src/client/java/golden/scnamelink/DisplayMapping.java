@@ -5,8 +5,8 @@ import java.util.UUID;
 public class DisplayMapping {
     final String mc_name;
     final UUID mc_uuid;
-    final String discord_nick;
-    final String colour;
+    public final String discord_nick;
+    public final String colour;
 
     public DisplayMapping(String mc_name, UUID mc_uuid, String discord_nick,
                           String colour) {
