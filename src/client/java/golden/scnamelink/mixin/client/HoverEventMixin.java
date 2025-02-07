@@ -47,7 +47,7 @@ public abstract class HoverEventMixin {
             if (this.entityType == EntityType.PLAYER && this.name.isPresent()) {
                 DisplayMapping mapping = SpooncraftNameLinkClient.getMapping(this.uuid,
                                                                              this.name.get().getString());
-                if (mapping != null) {
+                if (mapping != null && mapping.discord_nick != null) {
                     this.tooltip.add(Text.translatable("gui.scnamelink.hover_nickname",
                                                        mapping.discord_nick));
                 }
